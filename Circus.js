@@ -16,10 +16,9 @@ function addArtist(){
 inquirer.prompt([{
 message: "Enter Artist's Name",
 name: "name"
-
-
 },
- { type: "list",
+
+{ type: "list",
  message: "Select role in the show",
  choices: [
 "Magician",
@@ -38,10 +37,8 @@ name: "name"
    message: "Enter actor's email address",
    name: "email"
 
- }
-
-
-]).then(function({name, role, stageName, email}){
+ }])
+ .then(function({name, role, stageName, email}){
 
     let roleSpec = "";
     if(role==="Magician") {
@@ -67,9 +64,11 @@ name: "moreActors"
 }]).then(function({roleSpec, moreActors})
 { 
     let newActor;
-    if (role === "Magician"){ newActor = new Magician(name, stageName, email, roleSpec);}
-    else if (role === "Acrobat"){ newActor = new Acrobat(name, stageName, email, roleSpec)}
-    else {newActor = new Understudy( name, stageName, email, roleSpec);}
+    if (role === "Magician")
+    { newActor = new Magician(name, stageName, email, roleSpec);
+    }else if (role === "Acrobat"){ newActor = new Acrobat(name, stageName, email, roleSpec)
+    }else 
+    {newActor = new Understudy( name, stageName, email, roleSpec);}
 
     cast.push(newActor);
     addHtml(newActor)
@@ -77,10 +76,9 @@ name: "moreActors"
  if (moreActors ==="yes") {
 
     addArtist();
- } else{ finishHtml();}
+ } else { finishHtml();}
 
-    }  
-    );
+    });
 
 });
 
@@ -107,7 +105,7 @@ function startHtml() {
         <div class="container">
             <div class="row">`;
 
-            fs.writeFile("./circus.html", html, function(err){
+            fs.writeFile("circus.html", html, function(err){
 
                 if(err){console.log(err);}
             });
@@ -121,13 +119,13 @@ return new Promise (function(resolve, reject){
 
     const name = performer.retrieveName();
     const role = performer.retrieveRole();
-    const stageName = performer.retieveStageName();
+    const stageName = performer.retrieveStageName();
     const email = performer.retrieveEmail();
     let data = "";
 
     if(role === "Magician" ) {
 
-        const signatureTrick = performer.retrieveSigantureTrick();
+        const signatureTrick = performer.retreiveSignatureTrick();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
         <h5 class="card-header">${name}<br /><br />Magician</h5>
