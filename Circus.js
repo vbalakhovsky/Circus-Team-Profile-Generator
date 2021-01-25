@@ -14,12 +14,12 @@ addArtist();
 function addArtist(){
 
 inquirer.prompt([{
-message: "Enter Artist's Name",
+message: "Enter Artist's Name:  ",
 name: "name"
 },
 
 { type: "list",
- message: "Select role in the show",
+ message: "Select role in the show:  ",
  choices: [
 "Magician",
 "Acrobat",
@@ -30,11 +30,11 @@ name: "name"
 
  },
  {
-     message: "Enter actor's stage name",
+     message: "Enter actor's stage name:  ",
      name: "stageName"
  },
  {
-   message: "Enter actor's email address",
+   message: "Enter actor's email address:   ",
    name: "email"
 
  }])
@@ -52,7 +52,7 @@ name: "name"
     }
 
 inquirer.prompt([{
-message: `Enter actor's ${roleSpec}`,
+message: `Enter actor's ${roleSpec}:  `,
 name: "roleSpec"
 
 },
@@ -109,7 +109,7 @@ function startHtml() {
 
                 if(err){console.log(err);}
             });
-            console.log("Allez Hop");
+            console.log("Allez Hop!");
 
 }
 
@@ -183,7 +183,7 @@ function finishHtml() {
     </div>
     </body>
     </html>`;
-    fs.appendFile(".circus.html", html, function(err){
+    fs.appendFile("circus.html", html, function(err){
         if(err){console.log(err);
         };
     });
