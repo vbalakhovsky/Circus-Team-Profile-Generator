@@ -48,7 +48,7 @@ name: "name"
     } else if (role === "Acrobat"){
         roleSpec = "Agent's name";
     } else {
-        roleSpec = "Actor school name";
+        roleSpec = "circus school name";
     }
 
 inquirer.prompt([{
@@ -96,6 +96,7 @@ function startHtml() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
         <title>Circus Cast</title>
     </head>
     <body>
@@ -140,7 +141,7 @@ return new Promise (function(resolve, reject){
         const agent = performer.retrieveAgent();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Magician</h5>
+        <h5 class="card-header">${name}<br /><br />Acrobat</h5>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Stage Name: ${stageName}</li>
             <li class="list-group-item">Email Address: ${email}</li>
@@ -152,7 +153,7 @@ return new Promise (function(resolve, reject){
         const school  = performer.retrieveSchool();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Magician</h5>
+        <h5 class="card-header">${name}<br /><br />Understudy</h5>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Stage Name: ${stageName}</li>
             <li class="list-group-item">Email Address: ${email}</li>
