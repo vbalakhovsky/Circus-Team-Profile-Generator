@@ -1,81 +1,81 @@
 const inquirer = require("inquirer");
 const fs = require ("fs");
-const Magician = require("./Magician");
-const Acrobat = require("./Acrobat");
-const Understudy = require("./Understudy");
+const Engineer = require("./Engineer");
+const Manager = require("./Manager");
+const Intern = require("./Intern");
 
 const cast = [];
 
-function initCircus() {
+function initTeam() {
 startHtml();
-addArtist();
+addMember();
 }
 
-function addArtist(){
+function addMember(){
 
 inquirer.prompt([{
-message: "Enter Artist's Name:  ",
+message: "Enter Team Memeber's Name:  ",
 name: "name"
 },
 
 { type: "list",
- message: "Select role in the show:  ",
+ message: "Select role on the team:  ",
  choices: [
-"Magician",
-"Acrobat",
-"Understudy"
+"Engineer",
+"Manager",
+"Intern"
 
  ],
  name: "role"
 
  },
  {
-     message: "Enter actor's stage name:  ",
-     name: "stageName"
+     message: "Enter the team roster id:  ",
+     name: "id"
  },
  {
-   message: "Enter actor's email address:   ",
+   message: "Enter team memeber's email address:   ",
    name: "email"
 
  }])
- .then(function({name, role, stageName, email}){
+ .then(function({name, role, id, email}){
 
     let roleSpec = "";
-    if(role==="Magician") {
+    if(role==="Engineer") {
 
-        roleSpec = "Signature Trick";
+        roleSpec = "GitHub User";
 
-    } else if (role === "Acrobat"){
-        roleSpec = "Agent's name";
+    } else if (role === "Manager"){
+        roleSpec = "Office Number";
     } else {
-        roleSpec = "circus school name";
+        roleSpec = "School Name";
     }
 
 inquirer.prompt([{
-message: `Enter actor's ${roleSpec}:  `,
+message: `Team Memeber's ${roleSpec}:  `,
 name: "roleSpec"
 
 },
 
 {type: "list",
-message: "Do you want to add more actors?",
+message: "Do you want to add more team members",
 choices: ["yes", "no"], 
-name: "moreActors"
-}]).then(function({roleSpec, moreActors})
+name: "moreMembers"
+}]).then(function({roleSpec, moreMembers})
 { 
-    let newActor;
-    if (role === "Magician")
-    { newActor = new Magician(name, stageName, email, roleSpec);
-    }else if (role === "Acrobat"){ newActor = new Acrobat(name, stageName, email, roleSpec)
+    let newMember;
+    if (role === "Engineer")
+    { newMember = new Engineer(name, id, email, roleSpec);
+    }else if (role === "Manager"){ newMember = new Manager(name, id, email, roleSpec)
     }else 
-    {newActor = new Understudy( name, stageName, email, roleSpec);}
+    {newMember = new Intern( name, id, email, roleSpec);}
 
-    cast.push(newActor);
-    addHtml(newActor)
+    cast.push(newMember);
+    addHtml(newMember)
     .then(function(){
- if (moreActors ==="yes") {
+ if (moreMembers ==="yes") {
 
-    addArtist();
+    addMember();
  } else { finishHtml();}
 
     });
@@ -97,65 +97,65 @@ function startHtml() {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
-        <title>Circus Cast</title>
+        <title>Dream Team</title>
     </head>
     <body>
         <nav class="navbar navbar-dark bg-dark mb-5">
-            <span class="navbar-brand mb-0 h1 w-100 text-center">Circus Artists</span>
+            <span class="navbar-brand mb-0 h1 w-100 text-center">Dream Team</span>
         </nav>
         <div class="container">
             <div class="row">`;
 
-            fs.writeFile("circus.html", html, function(err){
+            fs.writeFile("TeamRoster.html", html, function(err){
 
                 if(err){console.log(err);}
             });
-            console.log("Allez Hop!");
+            console.log("Let's Build Our Team");
 
 }
 
-function addHtml(performer) {
+function addHtml(cog) {
 
 return new Promise (function(resolve, reject){
 
-    const name = performer.retrieveName();
-    const role = performer.retrieveRole();
-    const stageName = performer.retrieveStageName();
-    const email = performer.retrieveEmail();
+    const name = cog.retrieveName();
+    const role = cog.retrieveRole();
+    const id = cog.retrieveId();
+    const email = cog.retrieveEmail();
     let data = "";
 
-    if(role === "Magician" ) {
+    if(role === "Engineer" ) {
 
-        const signatureTrick = performer.retreiveSignatureTrick();
+        const git = cog.retreiveGit();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Magician</h5>
+        <h5 class="card-header">${name}<br /><br />Engineer</h5>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Stage Name: ${stageName}</li>
+            <li class="list-group-item">Team Roster ID: ${id}</li>
             <li class="list-group-item">Email Address: ${email}</li>
-            <li class="list-group-item">Famous for: ${signatureTrick}</li>
+            <li class="list-group-item">GitHub Username: ${git}</li>
         </ul>
         </div>
     </div>`;
-    } else if (role === "Acrobat"){
-        const agent = performer.retrieveAgent();
+    } else if (role === "Manager"){
+        const officeNumber = cog.retrieveOfficeNumber();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Acrobat</h5>
+        <h5 class="card-header">${name}<br /><br />Manager</h5>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Stage Name: ${stageName}</li>
+            <li class="list-group-item">Team Roster ID: ${id}</li>
             <li class="list-group-item">Email Address: ${email}</li>
-            <li class="list-group-item">Represented by: ${agent}</li>
+            <li class="list-group-item">Office Number: ${officeNumber}</li>
         </ul>
         </div>
     </div>`;
     } else  {
-        const school  = performer.retrieveSchool();
+        const school  = cog.retrieveSchool();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Understudy</h5>
+        <h5 class="card-header">${name}<br /><br />Intern</h5>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Stage Name: ${stageName}</li>
+            <li class="list-group-item">Team Roster ID: ${id}</li>
             <li class="list-group-item">Email Address: ${email}</li>
             <li class="list-group-item">Graduate of: ${school}</li>
         </ul>
@@ -164,8 +164,8 @@ return new Promise (function(resolve, reject){
 
     }
 
-    console.log("Casting");
-    fs.appendFile("./circus.html", data, function(err){
+    console.log("Team creation continued");
+    fs.appendFile("./TeamRoster.html", data, function(err){
         if(err){
 
             return reject(err);
@@ -184,10 +184,10 @@ function finishHtml() {
     </div>
     </body>
     </html>`;
-    fs.appendFile("circus.html", html, function(err){
+    fs.appendFile("TeamRoster.html", html, function(err){
         if(err){console.log(err);
         };
     });
-    console.log("Curtain!");
+    console.log("The Team is Created");
 }
-initCircus();
+initTeam();
