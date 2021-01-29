@@ -4,11 +4,12 @@
   "description": "This app allows user to create a circus team profile in Node. The user has the option to select the role of the circus artist and add specifications unique to that role, after the profile is completed an html file is generated. The app relies on file system and inquirer NPM's.",
   "main": "Acrobat.js",
   "dependencies": {
-    "inquirer": "^7.3.3"
+    "inquirer": "^7.3.3",
+    "jest": "^26.6.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
